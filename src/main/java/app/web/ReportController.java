@@ -19,7 +19,6 @@ public class ReportController {
         this.userService = userService;
         this.userProperties = userProperties;
     }
-
     @GetMapping("/reports")
     public ModelAndView getReportsPage(){
 

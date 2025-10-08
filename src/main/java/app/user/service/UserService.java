@@ -109,4 +109,12 @@ public class UserService {
 
         return getByUsername(userProperties.getDefaultUser().getUsername());
     }
+
+    public void switchRole(UUID userId) {
+
+
+    }
+    public void switchStatus(UUID userId) {
+
+    }
 }
