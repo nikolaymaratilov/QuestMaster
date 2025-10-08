@@ -54,13 +54,13 @@ public class UserController {
 
         userService.switchRole(userId);
 
-        return null;
+        return "redirect:/users";
     }
     @PatchMapping("/{userId}/status")
     public String switchUserStatus(@PathVariable UUID userId){
 
         userService.switchStatus(userId);
         
-        return null;
+        return "redirect:/users";
     }
 }
