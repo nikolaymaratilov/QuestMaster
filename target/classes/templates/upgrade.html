@@ -276,7 +276,7 @@
         <select name="walletId" th:field="*{walletId}">
           <option th:each="wallet : ${user.wallets}" th:value="${wallet.id}" th:text="${'Standart Wallet - ' + wallet.balance + ' EUR'}">Standard Wallet - 36.03 EUR</option>
         </select>
-        <button th:unless="${user.subscriptions[0].type.name() == 'ULTIMATE'}" class="subscription-action-button" type="submit" name="subscriptionType" id="PREMIUM" value="PREMIUM">
+        <button th:unless="${user.subscriptions[0].type.name() == 'ULTIMATE'}" class="subscription-action-button" type="submit" name="subscriptionType" id="ULTIMATE" value="PREMIUM">
           <p>Receive</p>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -284,7 +284,7 @@
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
           </svg>
         </button>
-        <div th:if="${user.subscriptions[0].type.name() =='PREMIUM'}" class="default-label-box ultimate-label">
+        <div th:if="${user.subscriptions[0].type.name() =='ULTIMATE'}" class="default-label-box ultimate-label">
           <p>Your current subscription</p>
         </div>
       </form>

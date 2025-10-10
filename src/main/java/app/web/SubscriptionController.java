@@ -63,6 +63,8 @@ public class SubscriptionController {
     @PostMapping
     private String upgrade(@Valid UpgradeRequest upgradeRequest, BindingResult bindingResult, HttpSession session, @RequestParam("subscriptionType")SubscriptionType subscriptionType){
 
+        System.out.println();
+
         return null;
     }
 }
