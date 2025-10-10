@@ -26,7 +26,7 @@
     <form class="form" th:action="@{/login}" th:method="POST" th:object="${loginRequest}">
 
       <h3>Login Here</h3>
-
+      <p class="alert-warning" th:if="${loginAttemptMessage}" th:text="${loginAttemptMessage}"></p>
       <label for="username">Username</label>
       <input type="text" placeholder="Username" id="username" th:field="*{username}">
       <p class="alert-warning" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Error message</p>
