@@ -1,15 +1,15 @@
 package app.web;
 
 import app.subscription.model.SubscriptionType;
+import app.subscription.service.SubscriptionService;
+import app.transaction.model.Transaction;
 import app.user.model.User;
-import app.user.property.UserProperties;
 import app.user.service.UserService;
 import app.web.dto.UpgradeRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,12 +24,12 @@ import java.util.UUID;
 public class SubscriptionController {
 
     private final UserService userService;
-    private final UserProperties userProperties;
+    private final SubscriptionService subscriptionService;
 
     @Autowired
-    public SubscriptionController(UserService userService, UserProperties userProperties) {
+    public SubscriptionController(UserService userService, SubscriptionService subscriptionService) {
         this.userService = userService;
-        this.userProperties = userProperties;
+        this.subscriptionService = subscriptionService;
     }
 
     @GetMapping
@@ -61,10 +61,20 @@ public class SubscriptionController {
     }
 
     @PostMapping
-    private String upgrade(@Valid UpgradeRequest upgradeRequest, BindingResult bindingResult, HttpSession session, @RequestParam("subscriptionType")SubscriptionType subscriptionType){
+    private ModelAndView upgrade(@Valid UpgradeRequest upgradeRequest, BindingResult bindingResult, HttpSession session, @RequestParam("subscriptionType")SubscriptionType subscriptionType){
 
-        System.out.println();
+        UUID userId = (UUID) session.getAttribute("userId");
+        User user = userService.getById(userId);
 
-        return null;
+        if (bindingResult.hasErrors()){
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("upgrade");
+            modelAndView.addObject("user",user);
+            return modelAndView;
+        }
+
+        Transaction transaction = subscriptionService.upgrade(user, subscriptionType);
+
+        return new ModelAndView("redirect:/");
     }
 }
