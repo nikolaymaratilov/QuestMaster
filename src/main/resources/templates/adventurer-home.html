@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lineage: The Spring Trial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="stylesheet" th:href="@{/css/adventurer-home.css}">
+</head>
+<body>
+<header class="navbar">
+    <div class="navbar-left"><p class="lineage2-title-header">Lineage 2:</p> The Quest Master</div>
+    <div class="navbar-right">
+        <a href="/logout" class="nav-btn">Exit</a>
+    </div>
+</header>
+<main class="main-content">
+
+    <div class="adventurer-home-container">
+
+        <div class="qm-header">
+            <h1>Welcome, <span class="key-header">Adventurer</span>!</h1>
+            <p>The world of Aden awaits your courage. Participate in quests, earn epic loot, and ascend in rank!</p>
+        </div>
+
+
+        <section class="quest-slider-row">
+
+            <!--     DISPLAY THIS IF NO QUESTS ARE FOUND    -->
+            <!--            <div class="empty-quest-slider">-->
+            <!--                <span>No quests have been created for you yet. Stay sharp, adventurer.</span>-->
+            <!--            </div>-->
+
+            <!--    DISPLAY SLIDER WITH QUESTS IF ANY QUEST EXIST   -->
+            <div class="quest-slider">
+                <div class="quest-preview-entry">
+                    <div class="quest-preview-banner-wrapper">
+                        <img class="quest-preview-banner" src="https://i.ibb.co/zw2J384/quest-banner-4.jpg" alt="Quest Banner"/>
+                        <div class="eligible-class-details">
+                            <!--   CHOOSE CORRECT CLASS ICON BASED ON THE ELIGIBLE CLASS FOR THE QUEST -->
+                            <img class="quest-preview-class-icon" src="/images/mystic-muse-icon.png" alt="Eligible Class Icon"/>
+                            <!--   <img class="quest-preview-class-icon" src="/images/ghost-hunter-icon.png" alt="Eligible Class Icon"/>-->
+                            <!--   <img class="quest-preview-class-icon" src="/images/doombringer-icon.png" alt="Eligible Class Icon"/>-->
+                            <form>
+                                <button class="gold-regular-button">Capture</button>
+<!--                            IF THE QUEST HAS A CAPTURER, DISPLAY THE BUTTON BELLOW                   -->
+<!--                            <button class="gold-regular-button completed" disabled>Completed</button>-->
+                            </form>
+                        </div>
+                    </div>
+                    <div class="quest-preview-details">
+                        <h4 class="quest-preview-title">Gludio’s Arise</h4>
+                        <p class="quest-preview-description">Gludio’s peace is false. A traitor hides in plain sight. Uncover the truth before the city’s heart is lost forever.</p>
+                        <div class="quest-preview-reward">
+                            <div class="quest-preview-item">
+                                <img class="quest-preview-reward-icon"
+                                     src="https://i.ibb.co/vxRRGMz7/leviathan-armor.png" alt="Reward Icon"/>
+                                <span>Leviathan Armor</span>
+                            </div>
+                            <div class="quest-preview-xp">
+                                <img class="quest-preview-xp-icon" src="/images/br_cash_rune_of_exp_i00.png"
+                                     alt="XP Icon"/>
+                                <span class="quest-preview-xp-label">1.8</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="quest-preview-entry">
+                    <div class="quest-preview-banner-wrapper">
+                        <img class="quest-preview-banner" src="https://i.ibb.co/3mmQPVfw/quest-banner-5.jpg" alt="Quest Banner"/>
+                        <div class="eligible-class-details">
+                            <!--   CHOOSE CORRECT CLASS ICON BASED ON THE ELIGIBLE CLASS FOR THE QUEST -->
+                            <img class="quest-preview-class-icon" src="/images/mystic-muse-icon.png" alt="Eligible Class Icon"/>
+<!--                            <img class="quest-preview-class-icon" src="/images/ghost-hunter-icon.png" alt="Eligible Class Icon"/>-->
+<!--                            <img class="quest-preview-class-icon" src="/images/doombringer-icon.png" alt="Eligible Class Icon"/>-->
+                            <form>
+                                <button class="gold-regular-button completed" disabled>Completed</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="quest-preview-details">
+                        <h4 class="quest-preview-title">Ivory Tower's Silent Cry</h4>
+                        <p class="quest-preview-description">The great tower’s mages sealed something unspeakable on the 3rd floor. Now it screams through cracked marble walls.</p>
+                        <div class="quest-preview-reward">
+                            <div class="quest-preview-item">
+                                <img class="quest-preview-reward-icon" src="https://i.ibb.co/chd18716/weapon-archangel-sword.png" alt="Reward Icon"/>
+                                <span>Archangel's Sword</span>
+                            </div>
+                            <div class="quest-preview-xp">
+                                <img class="quest-preview-xp-icon" src="/images/br_cash_rune_of_exp_i00.png"
+                                     alt="XP Icon"/>
+                                <span class="quest-preview-xp-label">2.1</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="quest-preview-entry">
+                    <div class="quest-preview-banner-wrapper">
+                        <img class="quest-preview-banner" src="https://i.ibb.co/0RBWCWmy/quest-banner-1.png" alt="Quest Banner"/>
+                        <div class="eligible-class-details">
+                            <!--   CHOOSE CORRECT CLASS ICON BASED ON THE ELIGIBLE CLASS FOR THE QUEST -->
+                            <img class="quest-preview-class-icon" src="/images/mystic-muse-icon.png" alt="Eligible Class Icon"/>
+                            <!--                        <img class="quest-preview-class-icon" src="/images/ghost-hunter-icon.png" alt="Eligible Class Icon"/>-->
+                            <!--                        <img class="quest-preview-class-icon" src="/images/doombringer-icon.png" alt="Eligible Class Icon"/>-->
+                            <form>
+                                <button class="gold-regular-button">Capture</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="quest-preview-details">
+                        <h4 class="quest-preview-title">Echoes of Eva’s Blessing</h4>
+                        <p class="quest-preview-description">A young Human Mystic claims to channel Eva’s grace. Is she a healer… or a vessel for something far more ancient?</p>
+                        <div class="quest-preview-reward">
+                            <div class="quest-preview-item">
+                                <img class="quest-preview-reward-icon" src="https://i.ibb.co/tMFcmgsb/vesper-sigil.png"
+                                     alt="Reward Icon"/>
+                                <span>Vesper Sigil</span>
+                            </div>
+                            <div class="quest-preview-xp">
+                                <img class="quest-preview-xp-icon" src="/images/br_cash_rune_of_exp_i00.png"
+                                     alt="XP Icon"/>
+                                <span class="quest-preview-xp-label">4.6</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="quest-preview-entry">
+                    <div class="quest-preview-banner-wrapper">
+                        <img class="quest-preview-banner" src="https://i.ibb.co/zw2J384/quest-banner-4.jpg" alt="Quest Banner"/>
+                        <div class="eligible-class-details">
+                            <!--   CHOOSE CORRECT CLASS ICON BASED ON THE ELIGIBLE CLASS FOR THE QUEST -->
+                            <img class="quest-preview-class-icon" src="/images/mystic-muse-icon.png" alt="Eligible Class Icon"/>
+                            <!--                        <img class="quest-preview-class-icon" src="/images/ghost-hunter-icon.png" alt="Eligible Class Icon"/>-->
+                            <!--                        <img class="quest-preview-class-icon" src="/images/doombringer-icon.png" alt="Eligible Class Icon"/>-->
+                            <form>
+                                <button class="gold-regular-button">Capture</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="quest-preview-details">
+                        <h4 class="quest-preview-title">Gludio’s Arise</h4>
+                        <p class="quest-preview-description">Gludio’s peace is false. A traitor hides in plain sight. Uncover the truth before the city’s heart is lost forever.</p>
+
+                        <div class="quest-preview-reward">
+                            <div class="quest-preview-item">
+                                <img class="quest-preview-reward-icon"
+                                     src="https://i.ibb.co/vxRRGMz7/leviathan-armor.png" alt="Reward Icon"/>
+                                <span>Leviathan Armor</span>
+                            </div>
+                            <div class="quest-preview-xp">
+                                <img class="quest-preview-xp-icon" src="/images/br_cash_rune_of_exp_i00.png"
+                                     alt="XP Icon"/>
+                                <span class="quest-preview-xp-label">1.8</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="main-adventurer-row">
+
+            <div class="info-column">
+                <div class="info-panel-box">
+                    <div class="info-text-box">
+                        <p>
+                            In the lands of <span class="info-text-box-highlight">Aden</span>, peace is an illusion.
+                            The fall of Elmoreden shattered balance, and chaos spread across the kingdoms.
+                            From the <span class="info-text-box-highlight">Ivory Tower’s secrets</span> to the cursed
+                            plains of the Orc Barracks, heroes rise and fall.
+                            <span class="info-text-box-highlight">Gludio’s gates</span> once welcomed traders—now they
+                            echo with war drums.
+                            Even dragons like Valakas stir in their slumber.
+                            In this world, every quest is a step toward glory… or oblivion. Are you ready to carve your
+                            fate? You better be, young hero...
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Player Details -->
+            <div class="player-column">
+                <div class="player-box">
+                    <img src="/images/mystic-muse-icon.png" class="player-class-icon" alt="Class Icon"/>
+                    <!--                    <img src="/images/ghost-hunter-icon.png" class="player-class-icon" alt="Class Icon"/>-->
+                    <!--                    <img src="/images/doombringer-icon.png" class="player-class-icon" alt="Class Icon"/>-->
+                    <h3 class="player-nickname">ShadowWolf</h3>
+                    <div class="player-stats">
+<!--                        <p class="class-badge class-mystic-muse">Mystic Muse</p>-->
+<!--                        <p class="class-badge class-ghost-hunter">Ghost Hunter</p>-->
+                        <p class="class-badge class-doombringer">Doombringer</p>
+
+                        <p class="player-level-attribute">Level: <strong>5</strong></p>
+                        <p class="player-xp-attribute">Total XP: <strong>132</strong></p>
+
+                        <div class="xp-bar">
+                            <div class="fill" style="width: 60%;"></div>
+                        </div>
+                        <p class="progress-label">60% to next level</p>
+
+                        <div class="player-flavor">
+                            “Glory is earned, not given.”
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Earned Items -->
+            <div class="box item-list-box">
+                <!--   DISPLAY LIST WITH ITEMS IF ANY ITEM WAS EARNED BY THE PLAYER   -->
+                <div class="item-list">
+                    <div class="item-row">
+                        <img src="https://i.ibb.co/chd18716/weapon-archangel-sword.png" width="32" height="32"
+                             class="item-icon-list-of-items"/>
+                        <div class="item-info">
+                            <div class="item-name">Archangel Sword</div>
+                            <div class="item-attributes">Weapon – x3.0 XP</div>
+                        </div>
+                        <div class="item-meta">
+                            <div class="meta-author">Ivory Tower's Silent Cry</div>
+                        </div>
+                    </div>
+                    <div class="item-row">
+                        <img src="https://i.ibb.co/2Yd4TBv4/bm-goblin-coin.png" width="32" height="32"
+                             class="item-icon-list-of-items"/>
+                        <div class="item-info">
+                            <div class="item-name">Goblin Coin</div>
+                            <div class="item-attributes">Other – x0.5 XP</div>
+                        </div>
+                        <div class="item-meta">
+                            <div class="meta-author">Gludio’s Arise</div>
+                        </div>
+                    </div>
+                    <div class="item-row">
+                        <img src="https://i.ibb.co/v6y3DY3h/vesper-shield.png" width="32" height="32"
+                             class="item-icon-list-of-items"/>
+                        <div class="item-info">
+                            <div class="item-name">Vesper Shield</div>
+                            <div class="item-attributes">Armor – x2.0 XP</div>
+                        </div>
+                        <div class="item-meta">
+                            <div class="meta-author">Echoes of Eva’s Blessing</div>
+                        </div>
+                    </div>
+                    <div class="item-row">
+                        <img src="https://i.ibb.co/chd18716/weapon-archangel-sword.png" width="32" height="32"
+                             class="item-icon-list-of-items"/>
+                        <div class="item-info">
+                            <div class="item-name">Archangel Sword</div>
+                            <div class="item-attributes">Weapon – x3.0 XP</div>
+                        </div>
+                        <div class="item-meta">
+                            <div class="meta-author">Paladin's Phoenix</div>
+                        </div>
+                    </div>
+                    <div class="item-row">
+                        <img src="https://i.ibb.co/1x76Wtp/forgotten-blade.png" width="32" height="32"
+                             class="item-icon-list-of-items"/>
+                        <div class="item-info">
+                            <div class="item-name">Valakas: Ember Rises</div>
+                            <div class="item-attributes">Weapon – x2.7 XP</div>
+                        </div>
+                        <div class="item-meta">
+                            <div class="meta-author">Gludio's defense</div>
+                        </div>
+                    </div>
+                </div>
+
+<!--           ====== DISPLAY THIS IF NO ITEMS ARE EARNED BY THE PLAYER ======      -->
+
+<!--            <div class="empty-item-list">-->
+<!--                 <span>You haven’t earned any items yet.</span>-->
+<!--            </div>-->
+            </div>
+        </section>
+
+    </div>
+</main>
+<footer th:replace="~{fragments/commons::footer}"></footer>
+</body>
+</html>
