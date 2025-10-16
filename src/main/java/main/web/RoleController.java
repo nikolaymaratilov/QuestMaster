@@ -33,6 +33,6 @@ public class RoleController {
         UUID playerId = (UUID) session.getAttribute("user_id");
         playerService.selectRole(playerId,playerRole);
 
-        return "redirect:home";
+        return "redirect:/home";
     }
 }

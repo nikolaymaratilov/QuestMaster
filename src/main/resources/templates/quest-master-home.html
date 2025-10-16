@@ -26,30 +26,30 @@
         <hr class="quest-line">
         <p class="quest-box-text"> A new fate shall unfold with every quest you open</p>
         <hr class="quest-line">
-        <a href="" class="gold-regular-button">Open Quest</a>
+        <a href="/quest" class="gold-regular-button">Open Quest</a>
     </div>
 
     <div class="dashboard-card two stats-grid">
         <div class="stat-card">
             <img src="/images/adventurer-icon.jpeg" class="stat-icon"/>
             <div class="stat-label">Adventurers</div>
-            <div class="stat-value">37</div>
+            <div class="stat-value" th:text="${totalAdventurers}">37</div>
         </div>
         <div class="stat-card">
             <img src="/images/br_cash_rune_of_exp_i00.png" class="stat-icon"/>
             <div class="stat-label">Quests</div>
-            <div class="stat-value">12</div>
+            <div class="stat-value" th:text="${totalQuests}">12</div>
         </div>
         <div class="stat-card">
             <img src="/images/vesper-sigil.png" class="stat-icon"/>
             <div class="stat-label">Items</div>
-            <div class="stat-value">1</div>
+            <div class="stat-value" th:text="${totalItems}">1</div>
         </div>
     </div>
 
     <div class="dashboard-card three stats-grid">
         <div class="stat-card">
-            <a href="" class="gold-regular-button">New Item</a>
+            <a href="/items" class="gold-regular-button">New Item</a>
         </div>
     </div>
 
@@ -59,111 +59,27 @@
             <table class="qm-table">
                 <tbody>
                 <!--   DISPLAY THIS ONLY IF THERE ARE NO ADVENTURERS IN THE SERVER.  -->
-<!--                <tr>-->
-<!--                    <td colspan="5" style="letter-spacing: 1.2px; font-style: italic; color: #d1d1d1;">There are no-->
-<!--                        adventurers in the server.-->
-<!--                    </td>-->
-<!--                </tr>-->
-                <tr>
+                <tr th:if="${allAdventurers.isEmpty()}">
+                    <td colspan="5" style="letter-spacing: 1.2px; font-style: italic; color: #d1d1d1;">There are no
+                        adventurers in the server.
+                    </td>
+                </tr>
+                <tr th:each="adventurer : ${allAdventurers}">
                     <!--   CHOOSE CORRECT CLASS ICON BASED ON PLAYER'S CLASS  -->
-                    <!--                    <td><img src="/images/mystic-muse-icon.png" class="avatar-img"/></td>-->
-                    <!--                    <td><img src="/images/ghost-hunter-icon.png" class="avatar-img"/></td>-->
-                    <!--                    <td><img src="/images/doombringer-icon.png" class="avatar-img"/></td>-->
-                    <td><img src="/images/mystic-muse-icon.png" class="avatar-img"/></td>
-                    <td>Celesthia</td>
-                    <td>Mystic Muse</td>
-                    <td>7 Lvl</td>
+                    <td><img th:if="${adventurer.playerClass.name() == 'MYSTIC-MUSE'}" src="/images/mystic-muse-icon.png" class="avatar-img"/></td>
+                    <td><img th:if="${adventurer.playerClass.name() == 'GHOST-HUNTER'}" src="/images/ghost-hunter-icon.png" class="avatar-img"/></td>
+                    <td><img th:if="${adventurer.playerClass.name() == 'DOOMBRINGER'}" src="/images/doombringer-icon.png" class="avatar-img"/></td>
+                    <td th:text="${adventurer.nickname}">Celesthia</td>
+                    <td th:text="${adventurer.playerClass.getDisplayName()}">Mystic Muse</td>
+                    <td th:text="${adventurer.getLevel() + 'Lvl'}">7 Lvl</td>
                     <td>
                         <div class="xp-bar">
                             <div class="fill" style="width: 85%"></div>
                         </div>
-                        <span class="xp-value">85%</span>
+                        <span class="xp-value" th:text="${adventurer.getProgress() + '%'}">85%</span>
                     </td>
                 </tr>
-                <tr>
-                    <td><img src="/images/ghost-hunter-icon.png" class="avatar-img"/></td>
-                    <td>Nightblade</td>
-                    <td>Ghost Hunter</td>
-                    <td>6 Lvl</td>
-                    <td>
-                        <div class="xp-bar">
-                            <div class="fill" style="width: 70%"></div>
-                        </div>
-                        <span class="xp-value">70%</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><img src="/images/doombringer-icon.png" class="avatar-img"/></td>
-                    <td>Spellshock</td>
-                    <td>Doombringer</td>
-                    <td>5 Lvl</td>
-                    <td>
-                        <div class="xp-bar">
-                            <div class="fill" style="width: 55%"></div>
-                        </div>
-                        <span class="xp-value">55%</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><img src="/images/mystic-muse-icon.png" class="avatar-img"/></td>
-                    <td>Lumiviel</td>
-                    <td>Mystic Muse</td>
-                    <td>4 Lvl</td>
-                    <td>
-                        <div class="xp-bar">
-                            <div class="fill" style="width: 43%"></div>
-                        </div>
-                        <span class="xp-value">43%</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><img src="/images/ghost-hunter-icon.png" class="avatar-img"/></td>
-                    <td>Vireon</td>
-                    <td>Ghost Hunter</td>
-                    <td>2 Lvl</td>
-                    <td>
-                        <div class="xp-bar">
-                            <div class="fill" style="width: 92%"></div>
-                        </div>
-                        <span class="xp-value">92%</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><img src="/images/doombringer-icon.png" class="avatar-img"/></td>
-                    <td>Manacrash</td>
-                    <td>Doombringer</td>
-                    <td>1 Lvl</td>
-                    <td>
-                        <div class="xp-bar">
-                            <div class="fill" style="width: 64%"></div>
-                        </div>
-                        <span class="xp-value">64%</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><img src="/images/mystic-muse-icon.png" class="avatar-img"/></td>
-                    <td>Serenys</td>
-                    <td>Mystic Muse</td>
-                    <td>1 Lvl</td>
-                    <td>
-                        <div class="xp-bar">
-                            <div class="fill" style="width: 34%"></div>
-                        </div>
-                        <span class="xp-value">34%</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><img src="/images/ghost-hunter-icon.png" class="avatar-img"/></td>
-                    <td>Wraithborn</td>
-                    <td>Ghost Hunter</td>
-                    <td>1 Lvl</td>
-                    <td>
-                        <div class="xp-bar">
-                            <div class="fill" style="width: 97%"></div>
-                        </div>
-                        <span class="xp-value">97%</span>
-                    </td>
-                </tr>
+
                 </tbody>
             </table>
         </div>

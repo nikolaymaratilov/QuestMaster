@@ -2,16 +2,26 @@ package main.security;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import main.model.Player;
+import main.service.PlayerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Component
 public class SessionInterceptor implements HandlerInterceptor {
+    private final PlayerService playerService;
 
     public static final Set<String> UNAUTHENTICATED_ENDPOINTS = Set.of("/login", "/register", "/", "/logout", "/error");
     public static final String USER_ID_FROM_SESSION = "user_id";
+
+    @Autowired
+    public SessionInterceptor(PlayerService playerService) {
+        this.playerService = playerService;
+    }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -27,6 +37,21 @@ public class SessionInterceptor implements HandlerInterceptor {
         }
 
         //TODO: Implement role selection page enforcement logic here
+        UUID playerId = (UUID) request.getSession(false).getAttribute(USER_ID_FROM_SESSION);
+        Player player = playerService.getById(playerId);
+
+        boolean hasRole = player.getRole() != null;
+        boolean isRoleEndpoint = endpoint.contains("role");
+
+        if (hasRole && isRoleEndpoint){
+            response.sendRedirect("/home");
+            return false;
+        }
+        if (!hasRole && !isRoleEndpoint){
+            response.sendRedirect("/roles");
+            return false;
+        }
+
 
         return true;
     }

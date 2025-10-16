@@ -22,10 +22,10 @@
         </p>
     </div>
     <div class="role-grid">
-        <form class="role-select-form quest-master" action="/players/me/role?role=QUEST_MASTER" method="post">
+        <form class="role-select-form quest-master" action="/players/me/role?role=QUEST_MASTER" th:method="PATCH">
             <button type="submit">Quest Master</button>
         </form>
-        <form class="role-select-form adventurer" action="/players/me/role?role=QUEST_ADVENTURER" method="post">
+        <form class="role-select-form adventurer" action="/players/me/role?role=ADVENTURER" th:method="PATCH">
             <button type="submit">Adventurer</button>
         </form>
     </div>

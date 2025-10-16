@@ -44,5 +44,15 @@ public class Player {
     @Column(nullable = false)
     private LocalDateTime updatedOn;
 
+    public int getLevel(){
+
+        return (int)(this.xp / 10) + 1;
+    }
+
+    public double getProgress(){
+
+        return Math.max(1, ((this.xp % 10) / 10.0) * 100);
+    }
+
 }
 

@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
@@ -72,8 +73,13 @@ public class PlayerService {
         playerRepository.save(player);
     }
 
-    private Player getById(UUID playerId) {
+    public Player getById(UUID playerId) {
 
         return playerRepository.findById(playerId).orElseThrow(() -> new RuntimeException("Player not found."));
+    }
+
+    public List<Player> getAllAdventurers() {
+
+        return playerRepository.findAllByRoleOrderByXpDesc(PlayerRole.ADVENTURER);
     }
 }
