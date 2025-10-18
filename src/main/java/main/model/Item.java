@@ -46,5 +46,10 @@ public class Item {
     //updatedBy – String, column not-null
     @Column(nullable = false)
     private String updatedBy;
+
+    public String getTypeAndMultiplierFormatted(){
+
+      return String.format("%s - x%.1f XP",this.type.getDisplayName(),xpBonusMultiplier);
+    }
 }
 

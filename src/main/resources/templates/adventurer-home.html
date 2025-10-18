@@ -28,20 +28,20 @@
         <section class="quest-slider-row">
 
             <!--     DISPLAY THIS IF NO QUESTS ARE FOUND    -->
-            <!--            <div class="empty-quest-slider">-->
-            <!--                <span>No quests have been created for you yet. Stay sharp, adventurer.</span>-->
-            <!--            </div>-->
+                        <div th:if="${quests.isEmpty()}" class="empty-quest-slider">
+                            <span>No quests have been created for you yet. Stay sharp, adventurer.</span>
+                        </div>
 
             <!--    DISPLAY SLIDER WITH QUESTS IF ANY QUEST EXIST   -->
-            <div class="quest-slider">
-                <div class="quest-preview-entry">
+            <div th:unless="${quests.isEmpty()}" class="quest-slider">
+                <div th:each="quest :${quests} " class="quest-preview-entry">
                     <div class="quest-preview-banner-wrapper">
-                        <img class="quest-preview-banner" src="https://i.ibb.co/zw2J384/quest-banner-4.jpg" alt="Quest Banner"/>
+                        <img class="quest-preview-banner" th:src="${quest.bannerUrl}" alt="Quest Banner"/>
                         <div class="eligible-class-details">
                             <!--   CHOOSE CORRECT CLASS ICON BASED ON THE ELIGIBLE CLASS FOR THE QUEST -->
-                            <img class="quest-preview-class-icon" src="/images/mystic-muse-icon.png" alt="Eligible Class Icon"/>
-                            <!--   <img class="quest-preview-class-icon" src="/images/ghost-hunter-icon.png" alt="Eligible Class Icon"/>-->
-                            <!--   <img class="quest-preview-class-icon" src="/images/doombringer-icon.png" alt="Eligible Class Icon"/>-->
+                            <img th:if="${quest.eligibleClass.name() == 'MYSTIC_MUSE'}" class="quest-preview-class-icon" src="/images/mystic-muse-icon.png" alt="Eligible Class Icon"/>
+                            <img th:if="${quest.eligibleClass.name() == 'GHOST_HUNTER'}" class="quest-preview-class-icon" src="/images/ghost-hunter-icon.png" alt="Eligible Class Icon"/>
+                            <img th:if="${quest.eligibleClass.name() == 'DOOMBRINGER'}" class="quest-preview-class-icon" src="/images/doombringer-icon.png" alt="Eligible Class Icon"/>
                             <form>
                                 <button class="gold-regular-button">Capture</button>
 <!--                            IF THE QUEST HAS A CAPTURER, DISPLAY THE BUTTON BELLOW                   -->
@@ -183,22 +183,22 @@
             <!-- Player Details -->
             <div class="player-column">
                 <div class="player-box">
-                    <img src="/images/mystic-muse-icon.png" class="player-class-icon" alt="Class Icon"/>
-                    <!--                    <img src="/images/ghost-hunter-icon.png" class="player-class-icon" alt="Class Icon"/>-->
-                    <!--                    <img src="/images/doombringer-icon.png" class="player-class-icon" alt="Class Icon"/>-->
-                    <h3 class="player-nickname">ShadowWolf</h3>
+                    <img th:if="${adventurer.playerClass.name() == 'MYSTIC_MUSE'}" src="/images/mystic-muse-icon.png" class="player-class-icon" alt="Class Icon"/>
+                    <img th:if="${adventurer.playerClass.name() == 'GHOST_HUNTER'}" src="/images/ghost-hunter-icon.png" class="player-class-icon" alt="Class Icon"/>
+                    <img th:if="${adventurer.playerClass.name() == 'DOOMBRINGER'}" src="/images/doombringer-icon.png" class="player-class-icon" alt="Class Icon"/>
+                    <h3 class="player-nickname" th:text="${adventurer.nickname}">ShadowWolf</h3>
                     <div class="player-stats">
-<!--                        <p class="class-badge class-mystic-muse">Mystic Muse</p>-->
-<!--                        <p class="class-badge class-ghost-hunter">Ghost Hunter</p>-->
-                        <p class="class-badge class-doombringer">Doombringer</p>
+                        <p th:if="${adventurer.playerClass.name() == 'MYSTIC_MUSE'}" class="class-badge class-mystic-muse">Mystic Muse</p>
+                        <p th:if="${adventurer.playerClass.name() == 'GHOST_HUNTER'}" class="class-badge class-ghost-hunter">Ghost Hunter</p>
+                        <p th:if="${adventurer.playerClass.name() == 'DOOMBRINGER'}" class="class-badge class-doombringer">Doombringer</p>
 
-                        <p class="player-level-attribute">Level: <strong>5</strong></p>
-                        <p class="player-xp-attribute">Total XP: <strong>132</strong></p>
+                        <p class="player-level-attribute">Level: <strong th:text="${adventurer.getLevel() + 'Lvl'}">5</strong></p>
+                        <p class="player-xp-attribute">Total XP: <strong th:text="${adventurer.xp}">132</strong></p>
 
                         <div class="xp-bar">
-                            <div class="fill" style="width: 60%;"></div>
+                            <div class="fill" th:style="'width:' + ${adventurer.getProgress()} + '%'"></div>
                         </div>
-                        <p class="progress-label">60% to next level</p>
+                        <p class="progress-label" th:text="${adventurer.getProgress() + '% to next level'}">60% to next level</p>
 
                         <div class="player-flavor">
                             “Glory is earned, not given.”

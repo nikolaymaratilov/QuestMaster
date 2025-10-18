@@ -26,7 +26,7 @@
         <hr class="quest-line">
         <p class="quest-box-text"> A new fate shall unfold with every quest you open</p>
         <hr class="quest-line">
-        <a href="/quest" class="gold-regular-button">Open Quest</a>
+        <a href="/quests" class="gold-regular-button">Open Quest</a>
     </div>
 
     <div class="dashboard-card two stats-grid">
@@ -66,15 +66,15 @@
                 </tr>
                 <tr th:each="adventurer : ${allAdventurers}">
                     <!--   CHOOSE CORRECT CLASS ICON BASED ON PLAYER'S CLASS  -->
-                    <td><img th:if="${adventurer.playerClass.name() == 'MYSTIC-MUSE'}" src="/images/mystic-muse-icon.png" class="avatar-img"/></td>
-                    <td><img th:if="${adventurer.playerClass.name() == 'GHOST-HUNTER'}" src="/images/ghost-hunter-icon.png" class="avatar-img"/></td>
+                    <td><img th:if="${adventurer.playerClass.name() == 'MYSTIC_MUSE'}" src="/images/mystic-muse-icon.png" class="avatar-img"/></td>
+                    <td><img th:if="${adventurer.playerClass.name() == 'GHOST_HUNTER'}" src="/images/ghost-hunter-icon.png" class="avatar-img"/></td>
                     <td><img th:if="${adventurer.playerClass.name() == 'DOOMBRINGER'}" src="/images/doombringer-icon.png" class="avatar-img"/></td>
                     <td th:text="${adventurer.nickname}">Celesthia</td>
                     <td th:text="${adventurer.playerClass.getDisplayName()}">Mystic Muse</td>
                     <td th:text="${adventurer.getLevel() + 'Lvl'}">7 Lvl</td>
                     <td>
                         <div class="xp-bar">
-                            <div class="fill" style="width: 85%"></div>
+                            <div class="fill" th:style="'width:' + ${adventurer.getProgress()} + '%'"></div>
                         </div>
                         <span class="xp-value" th:text="${adventurer.getProgress() + '%'}">85%</span>
                     </td>

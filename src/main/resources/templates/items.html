@@ -52,40 +52,38 @@
 
                 <h2>Item Attributes</h2>
 
-                <form class="actual-form">
+                <form class="actual-form" th:action="@{/items}" th:method="POST" th:object="${itemCreateRequest}">
                     <div class="form-group">
                         <label>Name
-                            <span class="invalid-form-input">invalid name</span>
+                            <span th:if="${#fields.hasErrors('name')}" class="invalid-form-input">invalid name</span>
                             <span class="invalid-form-input validation-text">length must be [6 - 26] symbols</span>
                         </label>
-                        <input id="item-name-input" type="text" name="name" placeholder="Archangel Sword"/>
+                        <input th:field="*{name}" id="item-name-input" type="text" name="name" placeholder="Archangel Sword"/>
                     </div>
 
                     <div class="form-group">
                         <label>Type
-                            <span class="invalid-form-input">invalid item type</span>
+                            <span th:if="${#fields.hasErrors('type')}" class="invalid-form-input">invalid item type</span>
                         </label>
-                        <select name="type" id="item-type-input">
+                        <select name="type" id="item-type-input" th:field="*{type}">
                             <option value="" selected>Item Type</option>
-                            <option>Weapon</option>
-                            <option>Armor</option>
-                            <option>Other</option>
+                            <option th:each="itemType: ${T(main.model.ItemType).values()}" th:value="${itemType}" th:text="${itemType.getDisplayName()}">Weapon</option>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label>XP Bonus Multiplier
-                            <span class="invalid-form-input">invalid multiplier</span>
+                            <span th:if="${#fields.hasErrors('xpBonusMultiplier')}" class="invalid-form-input">invalid multiplier</span>
                             <span class="invalid-form-input validation-text">value [1 - 3]</span>
                         </label>
-                        <input id="item-bonus-input" type="number" step="0.1" name="xpBonus" placeholder="1.5"/>
+                        <input th:field="*{xpBonusMultiplier}" id="item-bonus-input" type="number" step="0.1" name="xpBonus" placeholder="1.5"/>
                     </div>
 
                     <div class="form-group">
                         <label>Icon URL
-                            <span class="invalid-form-input">invalid url</span>
+                            <span th:if="${#fields.hasErrors('url')}" class="invalid-form-input">invalid url</span>
                         </label>
-                        <input type="text" id="item-icon-url-input" name="iconUrl"
+                        <input th:field="*{url}" type="text" id="item-icon-url-input" name="iconUrl"
                                placeholder="/images/items/sword.png"/>
                     </div>
 
@@ -112,60 +110,23 @@
                 </div>
             </div>
             <div class="box item-list-box">
-                    <div class="item-list">
-                        <div class="item-row">
-                            <img src="https://i.ibb.co/chd18716/weapon-archangel-sword.png" width="32" height="32" class="item-icon-list-of-items"/>
+                    <div th:unless="${allItems.isEmpty()}" class="item-list">
+                        <div th:each="item : ${allItems}" class="item-row">
+                            <img th:src="${item.iconUrl}" width="32" height="32" class="item-icon-list-of-items"/>
                             <div class="item-info">
-                                <div class="item-name">Archangel Sword</div>
-                                <div class="item-attributes">Weapon – x3.0 XP</div>
+                                <div class="item-name" th:text="${item.name}">Archangel Sword</div>
+                                <div class="item-attributes" th:text="${item.getTypeAndMultiplierFormatted}">Weapon – x3.0 XP</div>
                             </div>
                             <div class="item-meta">
-                                <div class="meta-author">Mandarin</div>
+                                <div class="meta-author" th:text="${item.createdBy}">Mandarin</div>
                                 <div class="meta-divider"></div>
-                                <div class="meta-date">21 Feb 2025</div>
-                            </div>
-                        </div>
-                        <div class="item-row">
-                            <img src="https://i.ibb.co/2Yd4TBv4/bm-goblin-coin.png" width="32" height="32" class="item-icon-list-of-items"/>
-                            <div class="item-info">
-                                <div class="item-name">Goblin Coin</div>
-                                <div class="item-attributes">Other – x0.5 XP</div>
-                            </div>
-                            <div class="item-meta">
-                                <div class="meta-author">GeshaKelesha</div>
-                                <div class="meta-divider"></div>
-                                <div class="meta-date">24 Jan 2024</div>
-                            </div>
-                        </div>
-                        <div class="item-row">
-                            <img src="https://i.ibb.co/v6y3DY3h/vesper-shield.png" width="32" height="32" class="item-icon-list-of-items"/>
-                            <div class="item-info">
-                                <div class="item-name">Vesper Shield</div>
-                                <div class="item-attributes">Armor – x2.0 XP</div>
-                            </div>
-                            <div class="item-meta">
-                                <div class="meta-author">Mandarin</div>
-                                <div class="meta-divider"></div>
-                                <div class="meta-date">17 March 2024</div>
-                            </div>
-                        </div>
-                        <div class="item-row">
-                            <img src="https://i.ibb.co/1x76Wtp/forgotten-blade.png" width="32" height="32" class="item-icon-list-of-items"/>
-                            <div class="item-info">
-                                <div class="item-name">Forgotten Blade</div>
-                                <div class="item-attributes">Weapon – x2.7 XP</div>
-                            </div>
-                            <div class="item-meta">
-                                <div class="meta-author">Lunatique</div>
-                                <div class="meta-divider"></div>
-                                <div class="meta-date">08 Dec 2018</div>
+                                <div class="meta-date" th:text="${#temporals.format(item.createdOn, 'dd MMM yyyy')}">21 Feb 2025</div>
                             </div>
                         </div>
                     </div>
-
-<!--            <div class="empty-item-list">-->
-<!--                 <span>No items were created yet.</span>-->
-<!--            </div>-->
+            <div th:if="${allItems.isEmpty()}" class="empty-item-list">
+                 <span>No items were created yet.</span>
+            </div>
             </div>
         </div>
     </div>
