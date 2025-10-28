@@ -16,12 +16,8 @@ public class BeanConfiguration {
 
     @Bean
     public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
-        // Този филтър позволява POST форма с _method=PATCH да се интерпретира правилно
+
         return new HiddenHttpMethodFilter();
     }
 
 }
-
-//TODO
-// [OFF-TOPIC]Вчера когато се упражнявах на упражнението за state man,като направих импл на бутончетата "switch",
-//локалхоста ми хвърли грешка,че не разпознава PATCH и трябваше да направя филтър HiddenHttpMethodFilter.Защо става така

@@ -1,13 +1,16 @@
 package app.web;
 
+import app.security.UserData;
 import app.user.model.Country;
 import app.user.model.User;
 import app.user.property.UserProperties;
 import app.user.service.UserService;
+import app.wallet.model.Wallet;
 import app.web.dto.LoginRequest;
 import app.web.dto.RegisterRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,27 +39,17 @@ public class IndexController {
     }
 
     @GetMapping("/login")
-    public ModelAndView getLoginPage(@RequestParam (name= "loginAttemptMessage",required = false) String message){
+    public ModelAndView getLoginPage(@RequestParam (name= "loginAttemptMessage",required = false) String message,@RequestParam (name= "error",required = false) String errorMessage){
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login");
         modelAndView.addObject("loginRequest",new LoginRequest());
         modelAndView.addObject("loginAttemptMessage",message);
-
-        return modelAndView;
-    }
-
-    @PostMapping("/login")
-    public ModelAndView login(@Valid LoginRequest loginRequest, BindingResult bindingResult, HttpSession session){
-
-        if (bindingResult.hasErrors()){
-            return new ModelAndView("login");
+        if (errorMessage != null){
+            modelAndView.addObject("errorMessage","Invalid username or password");
         }
 
-        User user = userService.login(loginRequest);
-        session.setAttribute("userId", user.getId());
-
-        return new ModelAndView("redirect:/home");
+        return modelAndView;
     }
 
     @GetMapping("/register")
@@ -84,15 +77,15 @@ public class IndexController {
     }
 
     @GetMapping("/home")
-    public ModelAndView getHomePage(HttpSession session){
+    public ModelAndView getHomePage(@AuthenticationPrincipal UserData userData){
 
-        UUID userId = (UUID) session.getAttribute("userId");
-        User user = userService.getById(userId);
+        User user = userService.getById(userData.getUserId());
 
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.setViewName("home");
         modelAndView.addObject("user",user);
+        modelAndView.addObject("primaryWallet",user.getWallets().stream().filter(Wallet::isMain).findFirst().get());
 
         return modelAndView;
     }

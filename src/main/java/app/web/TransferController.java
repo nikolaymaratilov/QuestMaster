@@ -1,18 +1,23 @@
 package app.web;
 
+import app.security.UserData;
 import app.transaction.model.Transaction;
 import app.user.model.User;
 import app.user.service.UserService;
 import app.wallet.service.WalletService;
 import app.web.dto.TransferRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/transfers")
@@ -28,9 +33,9 @@ public class TransferController {
     }
 
     @GetMapping
-    public ModelAndView getTransferPage(){
+    public ModelAndView getTransferPage(@AuthenticationPrincipal UserData userData){
 
-        User user = userService.getDefaultUser();
+        User user = userService.getById(userData.getUserId());
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("transfer");
@@ -41,14 +46,16 @@ public class TransferController {
     }
 
     @PostMapping
-    public ModelAndView transfer(@Valid TransferRequest transferRequest, BindingResult bindingResult){
+    public ModelAndView transfer(@Valid TransferRequest transferRequest, BindingResult bindingResult,HttpSession session){
 
         if (bindingResult.hasErrors()){
-            User user = userService.getDefaultUser();
+            UUID userId = (UUID) session.getAttribute("userId");
+            User user = userService.getById(userId);
 
             ModelAndView modelAndView = new ModelAndView();
             modelAndView.setViewName("transfer");
             modelAndView.addObject("user",user);
+
             return modelAndView;
         }
 
@@ -56,4 +63,6 @@ public class TransferController {
 
         return new ModelAndView("redirect:/transactions/" + transaction.getId());
     }
+
+
 }

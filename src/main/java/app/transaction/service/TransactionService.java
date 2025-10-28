@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Currency;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -49,5 +50,10 @@ public class TransactionService {
     public Transaction getById(UUID id) {
 
         return transactionRepository.findById(id).orElseThrow(() -> new RuntimeException("Transaction not found"));
+    }
+
+    public List<Transaction> getAllByUserId(UUID userId) {
+
+            return transactionRepository.findAllByOwnerIdOrderByCreatedOnDesc(userId);
     }
 }

@@ -1,8 +1,6 @@
 package app.web.dto;
 
-import app.subscription.model.Subscription;
 import app.subscription.model.SubscriptionPeriod;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.UUID;
@@ -12,11 +10,10 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class UpgradeRequest {
 
-    @NotNull
     private SubscriptionPeriod period;
 
-    @NotNull
     private UUID walletId;
 }

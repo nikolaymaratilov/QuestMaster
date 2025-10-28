@@ -25,6 +25,9 @@ public class Wallet {
     private User owner;
 
     @Column(nullable = false)
+    private String nickname;
+
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private WalletStatus status;
 
@@ -33,6 +36,8 @@ public class Wallet {
 
     @Column(nullable = false)
     private Currency currency;
+
+    private boolean main;
 
     @Column(nullable = false)
     private LocalDateTime createdOn;
